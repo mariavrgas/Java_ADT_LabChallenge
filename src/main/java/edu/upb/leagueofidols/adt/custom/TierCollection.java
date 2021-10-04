@@ -13,6 +13,7 @@ import edu.upb.leagueofidols.models.Player;
 import edu.upb.leagueofidols.models.TierLevel;
 
 import java.nio.file.Path;
+import java.util.Iterator;
 
 /**
  *
@@ -20,7 +21,7 @@ import java.nio.file.Path;
  */
 public class TierCollection implements ICustomCollection<TierLevel, Player>{
 
-    private CustomEntry<TierLevel, PlayerTree> entry;
+    private CustomEntry<TierLevel, PlayerTree> head;
 
     @Override
     public void put(TierLevel key, Player value) {
@@ -61,4 +62,32 @@ public class TierCollection implements ICustomCollection<TierLevel, Player>{
     public void printAll() {
 
     }
+
+    @Override
+    public Iterator<PlayerTree> iterator() {
+        return new TierCollectionIterator(head);
+    }
+
+    private class TierCollectionIterator implements Iterator<PlayerTree> {
+
+        private CustomEntry<TierLevel, PlayerTree> current;
+
+        private TierCollectionIterator(CustomEntry<TierLevel, PlayerTree> head) {
+            current = head;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return current.getNext()!=null;
+        }
+
+        @Override
+        public PlayerTree next() {
+            PlayerTree element = current.getValue();
+            current=current.getNext();
+            return element;
+        }
+    }
+
+
 }

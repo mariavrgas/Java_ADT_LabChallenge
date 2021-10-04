@@ -17,12 +17,12 @@ import lombok.Data;
 public class Player implements  Comparable<Player>{
     
     private String playerName;
-    private int ranking;
+    private int level;
     private LocalDateTime created;
 
-    public Player(String playerName, int ranking, LocalDateTime created) {
+    public Player(String playerName, int level, LocalDateTime created) {
         this.playerName = playerName;
-        this.ranking = ranking;
+        this.level = level;
         this.created = created;
     }
     

@@ -12,7 +12,7 @@ import edu.upb.leagueofidols.adt.tree.ITree;
  * @author cahuc
  */
 
-public interface ICustomCollection<K , T extends Comparable<T>> {
+public interface ICustomCollection<K , T extends Comparable<T>> extends Iterable{
 
     void put(K key, T value);
 
