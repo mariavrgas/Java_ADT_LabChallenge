@@ -80,13 +80,58 @@ public class PlayerTree implements ITree<Player>{
             return containsRecursive(object, current.getRight());
         }
     }
-    
-    
 
     @Override
     public void delete(Player object) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    @Override
+    public void delete(Player object) {
+        root = deleteRecursive(object, root);
+    }
+
+    public TreeNode<Player> deleteRecursive(Player object, TreeNode<Player> current){
+
+        if(current == null){
+            return null;
+        } else if (current.getValue() == object){
+
+            if (current.getLeft() == null && current.getRight() == null){
+                return null;
+            }
+
+            if (current.getRight() == null){
+                return current.getLeft();
+            }
+
+            if (current.getLeft() == null){
+                return current.getRight();
+            }
+
+            Player smallestPlayer = findSmallestPlayer(current.getRight());
+            current.setValue(smallestPlayer);
+            current.setRight(deleteRecursive(smallestPlayer, current.getRight()));
+            return current;
+        }
+
+        int val = object.compareTo(current.getValue());
+
+        if (val == -1){
+            current.setLeft(deleteRecursive(object, current.getLeft()));
+            return current;
+        } else {
+            current.setRight(deleteRecursive(object, current.getRight()));
+            return current;
+        }
+    }
+
+    private Player findSmallestPlayer(TreeNode<Player> current) {
+        return current.getLeft() == null
+                ? current.getValue()
+                : findSmallestPlayer(current.getLeft());
+    }
+
 
     @Override
     public void traverse() {
