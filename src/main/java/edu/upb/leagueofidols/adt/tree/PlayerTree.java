@@ -60,8 +60,28 @@ public class PlayerTree implements ITree<Player>{
 
     @Override
     public boolean contains(Player object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return containsRecursive(object, root);
     }
+    
+    
+    public boolean containsRecursive(Player object, TreeNode<Player> current){
+        
+        if(current == null){
+            return false;
+        } else if (current.getValue() == object){
+            return true;
+        }
+        
+        int val = object.compareTo(current.getValue());
+        
+        if (val == -1){
+            return containsRecursive(object, current.getLeft());
+        } else{
+            return containsRecursive(object, current.getRight());
+        }
+    }
+    
+    
 
     @Override
     public void delete(Player object) {
