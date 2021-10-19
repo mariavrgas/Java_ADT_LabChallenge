@@ -27,8 +27,15 @@ public class Player implements  Comparable<Player>{
     }
     
     @Override
-    public int compareTo(Player o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int compareTo(Player c) {
+        if(this.level < c.getLevel()){
+            return -1;
+        }else if (this.level == c.getLevel()){
+            return 0;
+        }else {
+            return 1;
+        }
+
     }
         
 }
