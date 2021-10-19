@@ -26,12 +26,50 @@ public class TierCollection implements ICustomCollection<TierLevel, Player>{
     @Override
     public void put(TierLevel key, Player value) {
 
-    }
+        Iterator iter = this.iterator();
 
+        CustomEntry current = null;
+        while( iter.hasNext())
+        {
+            current =  (CustomEntry) iter.next();
+            if(current.getKey().equals(key))
+            {
+                current.getValue().add(value);
+            }
+        }
+
+    }
     @Override
     public Player findInKey(TierLevel key, Player value) {
-        return null;
+
+        Player rta= null;
+
+
+        Iterator iter = this.iterator();
+        CustomEntry current = null;
+        while( iter.hasNext())
+        {
+            current =  (CustomEntry) iter.next();
+            if(current.getKey().equals(key))
+            {
+                if(current.getValue().contains(value))
+                {
+                    rta=value;
+                }
+            }
+        }
+        current =  (CustomEntry) iter.next(); 
+        if(current.getKey().equals(key))
+        {
+            if(current.getValue().contains(value))
+            {
+                rta=value;
+            }
+        }
+        return rta;
+
     }
+
 
     @Override
     public Player findInAnyKey(Player value) {
